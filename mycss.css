@@ -1,0 +1,22 @@
+.box {
+	border-style: solid;
+	border: 1px solid black
+}
+.refStr {
+	
+}
+.right-border{
+	border-right: 1px solid black;
+}
+
+.bot-border{
+	border-bottom: 1px solid black;
+}
+
+.data{
+	font-size: 160%;
+}
+
+.redfont{
+	color: red;
+}

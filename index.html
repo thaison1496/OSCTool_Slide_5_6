@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="mycss.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+<script type="text/javascript" src="script.js"></script>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+	<div class="col-md-9">
+		<div class="col-md-9">
+			Reference String:
+   			<input size = "80" class="refStr" ng-model="refStr"></input>
+		</div>
+		<div class="col-md-3">
+			#Frames:
+   			<input size = "20" type="number" ng-model="nframe"></input>
+		</div>
+		<div class="row"></div>
+		<div class="col-md-2">
+			<button ng-click = "calculate(refStr, nframe)">Calculate</button>
+		</div>
+
+		<div class="row"></div>
+
+		<div class="col-md-offset-1 col-md-10 box" ng-repeat="algo in algoNames">
+			{{algo}}
+			<table class="table table-bordered table-condensed">
+				<thead>
+					<tr>
+						<td ng-repeat="i in pages track by $index" class="data">
+							<b>{{i}}</b>
+						</td>		
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat = "row in algos[algo]" class="data">
+						<td ng-repeat="i in row track by $index">
+							<span ng-class="{'redfont': i.color}">{{i.value}}</span>
+						</td>	
+					</tr>		
+				</tbody>
+				
+			</table>
+		</div>
+	</div>
+	
+
+	<div class="col-md-3">
+		<div class="col-md-12 box">
+			<div>Address Translation</div>
+			<div>
+				<div>Base addr: </div>
+				<input type="number" ng-model = "addrTran.base"></input>
+			</div>
+			<div>
+				<div>Limit: </div>
+				<input type="number" ng-model = "addrTran.limit"></input>
+			</div>
+			<div>
+				<div>Reference: </div>
+				<input type="number" ng-model = "addrTran.ref"></input>
+			</div>
+			<div ng-show="addrTran.ref < addrTran.limit">
+				<div>{{addrTran.base + addrTran.ref}}</div>	
+			</div>
+			<div ng-hide="addrTran.ref < addrTran.limit">Invalid</div>
+		</div>
+
+		<div class="col-md-12 box">
+			<div>EAT (Estimated Access Time - Slide 5)</div>
+			<div>
+				<div>Hit rate (%): </div>
+				<input type="number" ng-model = "EAT.hitRate"></input>
+			</div>
+			<div>
+				<div>Associative Lookup Time: </div>
+				<input type="number" ng-model = "EAT.lookupTime"></input>
+			</div>
+			<div>
+				<div>Mem Access Time: </div>
+				<input type="number" ng-model = "EAT.memAccessTime"></input>
+			</div>
+			<div>EAT: {{EAT.memAccessTime * 2 + EAT.lookupTime - EAT.memAccessTime * EAT.hitRate / 100}}</div>
+		</div>	
+	</div>
+	
+</body>
+</html>
